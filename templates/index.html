@@ -1,0 +1,60 @@
+{% from "macros/sidebar.html" import sidebar %}
+{% from "macros/navbar.html" import navbar %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include "head.html" %}
+    <!-- Add Datatables CSS -->
+    <link rel="stylesheet" type="text/css" href="/static/css/jquery.dataTables.css">
+</head>
+<body>
+{{ navbar() }}
+{{ sidebar() }}
+<section class="home-section">
+    <div class="col-lg-7 offset-1">
+        <h2 class="card-title">Data Pegawai</h2>
+        <a href="/addprsn" type="button" class="btn btn-success btn-sm "><b>+Tambah Pegawai</b></a>
+        <div class="card">
+            <div class="card-body">
+                <table class="table" id="employee-table">
+                    <thead>
+                    <tr>
+                        <th>Id Pegawai</th>
+                        <th>Nama</th>
+                        <th>Jabatan</th>
+                        <th>Aksi</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in data %}
+                        <tr>
+                            <td>{{ item[0] }}</td>
+                            <td>{{ item[1] }}</td>
+                            <td>{{ item[2] }}</td>
+                            <td>
+                                <a href="/update/{{ item[0] }}" class="btn btn-primary btn-sm">Update</a>
+                                <a href="/delete/{{ item[0] }}" class="btn btn-danger btn-sm"
+                                   onclick="return confirmDelete()">Delete</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Add Datatables JavaScript -->
+<script type="text/javascript" src="/static/js/jquery.dataTables.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#employee-table').DataTable();
+    });
+
+    function confirmDelete() {
+        return confirm("Are you sure you want to delete this record?");
+    }
+</script>
+</body>
+</html>
