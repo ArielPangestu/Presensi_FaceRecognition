@@ -224,6 +224,11 @@ def login_required(f):
     return decorated_function
 
 @app.route('/')
+def dashboard():
+    mycursor.execute("SELECT COUNT(prs_name) FROM prs_mstr")
+    count = mycursor.fetchone()[0]
+    return render_template('dashboard.html', count=count)
+
 
 @app.route('/index')
 def index():
@@ -292,10 +297,7 @@ def register():
 
 
 from flask_bcrypt import Bcrypt
-
 bcrypt = Bcrypt(app)
-
-
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():

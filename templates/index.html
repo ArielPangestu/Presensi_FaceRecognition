@@ -11,35 +11,37 @@
 {{ navbar() }}
 {{ sidebar() }}
 <section class="home-section">
-    <div class="col-lg-7 offset-1">
-        <h2 class="card-title">Data Pegawai</h2>
-        <a href="/addprsn" type="button" class="btn btn-success btn-sm "><b>+Tambah Pegawai</b></a>
+    <div class="col-lg-20 offset-1">
         <div class="card">
             <div class="card-body">
-                <table class="table" id="employee-table">
-                    <thead>
-                    <tr>
-                        <th>Id Pegawai</th>
-                        <th>Nama</th>
-                        <th>Jabatan</th>
-                        <th>Aksi</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for item in data %}
+                    <h2 class="card-title text-center">Data Pegawai</h2>
+                    <a href="/addprsn" type="button" class="font-weight-bold btn btn-success btn-sm mb-2">+Tambah
+                        Pegawai</a>
+                    <table class="table" id="employee-table">
+                        <thead>
                         <tr>
-                            <td>{{ item[0] }}</td>
-                            <td>{{ item[1] }}</td>
-                            <td>{{ item[2] }}</td>
-                            <td>
-                                <a href="/update/{{ item[0] }}" class="btn btn-primary btn-sm">Update</a>
-                                <a href="/delete/{{ item[0] }}" class="btn btn-danger btn-sm"
-                                   onclick="return confirmDelete()">Delete</a>
-                            </td>
+                            <th>Id Pegawai</th>
+                            <th>Nama</th>
+                            <th>Jabatan</th>
+                            <th>Aksi</th>
                         </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                        {% for item in data %}
+                            <tr>
+                                <td>{{ item[0] }}</td>
+                                <td>{{ item[1] }}</td>
+                                <td>{{ item[2] }}</td>
+                                <td>
+                                    <a href="/update/{{ item[0] }}" class="btn btn-primary btn-sm">Update</a>
+                                    <a href="/delete/{{ item[0] }}" class="btn btn-danger btn-sm"
+                                       onclick="return confirmDelete()">Delete</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

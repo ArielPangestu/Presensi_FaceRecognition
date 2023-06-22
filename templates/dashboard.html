@@ -1,10 +1,39 @@
+{% from "macros/sidebar.html" import sidebar %}
+{% from "macros/navbar.html" import navbar %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    {% include "head.html" %}
+    <style>
+        .custom-position {
+            position: absolute;
+            top: 50%;
+            left: 20%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
 </head>
 <body>
-
+{{ navbar() }}
+{{ sidebar() }}
+<section class="home-section">
+    <div class="col-xl-3 col-md-6 mb-4 custom-position">
+        <div class="card border-right-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-right">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Jumlah Karyawan
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ count }}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="bx bxs-contact"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 </body>
 </html>

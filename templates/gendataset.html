@@ -1,12 +1,13 @@
+{% from "macros/sidebar.html" import sidebar %}
+{% from "macros/navbar.html" import navbar %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     {% include "head.html" %}
 </head>
 <body>
-
-{% include "macros/navbar.html" %}
-
+{{ navbar() }}
+{{ sidebar() }}
 <section class="py-1">
     <div class="row mt-5">
         <div class="col-md-3 offset-lg-2">
@@ -15,7 +16,6 @@
             <img src="{{ url_for('vidfeed_dataset', nbr=prs) }}" width="100%" class="img-thumbnail">
         </div>
     </div>
-
     <br>
     <div class="row">
         <div class="col-md-3 offset-lg-2">
