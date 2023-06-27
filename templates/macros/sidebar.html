@@ -12,8 +12,7 @@
 <body>
 <div class="sidebar">
     <div class="logo-details">
-        <i class='bx bxl-c-plus-plus icon'></i>
-        <div class="logo_name">Attendance</div>
+        <div class="logo_name">Presensi</div>
         <i class='bx bx-menu' id="btn"></i>
     </div>
     <ul class="nav-list">
@@ -39,11 +38,11 @@
             <span class="tooltip">Data Pegawai</span>
         </li>
         <li>
-            <a href="#">
+            <a href="{{ url_for('attendance') }}">
                 <i class='bx bx-folder'></i>
-                <span class="links_name">File Manager</span>
+                <span class="links_name">Data Kehadiran</span>
             </a>
-            <span class="tooltip">Files</span>
+            <span class="tooltip">Data Kehadiran</span>
         </li>
         <li>
             <a href="#">
@@ -65,15 +64,6 @@
                 <span class="links_name">Setting</span>
             </a>
             <span class="tooltip">Setting</span>
-        </li>
-        <li class="profile">
-            <div class="profile-details">
-                <div class="name_job">
-                    <div class="name">{{ session.get('username') }}</div>
-                    <div class="job"></div>
-                </div>
-            </div>
-            <i class='bx bx-log-out' id="log_out" href="{{ url_for('logout') }}"></i>
         </li>
     </ul>
 </div>

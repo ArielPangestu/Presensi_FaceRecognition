@@ -7,7 +7,7 @@ import numpy as np
 import os
 from flask_bcrypt import Bcrypt
 import time
-from datetime import date
+from datetime import date, time
 
 app = Flask(__name__)
 app.secret_key = "my_secret_key_123456789"
@@ -236,6 +236,19 @@ def index():
     data = mycursor.fetchall()
     return render_template('index.html', data=data)
 
+@app.route('/attendance')
+def attendance():
+    mycursor.execute("SELECT prs_mstr.prs_name, "
+                     "DATE_FORMAT(accs_hist.accs_added, '%Y-%m-%d') AS accs_date, "
+                     "DATE_FORMAT(accs_hist.accs_added, '%H:%i:%s') AS accs_time, "
+                     "CASE WHEN TIME(accs_hist.accs_added) <= TIME('08:00:00') THEN 'Hadir' ELSE 'Telat' END AS keterangan "
+                     "FROM accs_hist "
+                     "JOIN prs_mstr ON accs_hist.accs_prsn = prs_mstr.prs_nbr")
+    data = mycursor.fetchall()
+    return render_template('attendance.html', data=data)
+
+
+
 # MySQL configurations
 mysql_config = {
     'host': 'localhost',
@@ -259,7 +272,6 @@ def check_login():
         return redirect(url_for('login'))
 
 @app.route('/register', methods=['GET', 'POST'])
-@login_required
 def register():
     if request.method == 'POST':
         username = request.form['username']
