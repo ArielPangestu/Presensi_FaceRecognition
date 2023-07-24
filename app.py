@@ -342,7 +342,7 @@ def login():
                     return redirect(url_for('index'))  # Redirect to index after successful login
 
                 else:
-                    return render_template('login.html', message='Invalid email or password')
+                    return render_template('login.html', alert='Email atau Password salah')
 
             except mysql.connector.Error as error:
                 print("Error during login:", error)
@@ -382,6 +382,8 @@ def addprsn_submit():
     return redirect(url_for('vfdataset_page', prs=prsnbr))
 
 import mysql.connector
+
+
 
 # ...
 

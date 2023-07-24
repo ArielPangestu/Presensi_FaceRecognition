@@ -20,7 +20,7 @@
                 <table class="table" id="employee-table">
                     <thead>
                     <tr>
-                        <th>Id Pegawai</th>
+                        <th>No</th>
                         <th>Nama</th>
                         <th>Jabatan</th>
                         <th>Aksi</th>
@@ -29,7 +29,7 @@
                     <tbody>
                     {% for item in data %}
                         <tr>
-                            <td>{{ item[0] }}</td>
+                            <td>{{ loop.index }}</td>
                             <td>{{ item[1] }}</td>
                             <td>{{ item[2] }}</td>
                             <td>

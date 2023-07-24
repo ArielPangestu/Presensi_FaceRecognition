@@ -5,9 +5,10 @@
 <html lang="en">
 <head>
     {% include "head.html" %}
-    <title>Data Kehadiran {% block title %}{% endblock %}</title>
-    <link rel="stylesheet" type="text/css" href="/static/css/jquery.dataTables.css">
-    <link rel="stylesheet" type="text/css" href="/static/css/buttons.bootstrap4.min.css">
+    <title>Laporan Kehadiran {% block title %}{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/jquery.dataTables.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/buttons.bootstrap4.min.css') }}">
 </head>
 <body>
 {{ navbar() }}
@@ -16,7 +17,7 @@
     <div class="col-lg-20 offset-1">
         <div class="card">
             <div class="card-body">
-                <h2 class="card-title text-center">Data Kehadiran</h2>
+                <h2 class="card-title text-center">Informasi Kehadiran</h2>
                 <table class="table" id="employee-table">
                     <thead>
                     <tr>
@@ -48,10 +49,18 @@
     </div>
 </section>
 
-<!-- Add Datatables JavaScript -->
-<script type="text/javascript" src="/static/js/jquery.dataTables.js"></script>
-<script type="text/javascript" src="/static/js/dataTables.buttons.min.js"></script>
-<script type="text/javascript" src="/static/js/buttons.bootstrap4.min.js"></script>
+<!-- Add required JavaScript libraries -->
+<script type="text/javascript" src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/jszip.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/FileSaver.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/jquery.dataTables.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/dataTables.buttons.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/buttons.bootstrap4.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/buttons.flash.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/buttons.html5.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/buttons.colVis.min.js') }}"></script>
+
+
 <script>
     $(document).ready(function () {
         var table = $('#employee-table').DataTable({
@@ -59,17 +68,31 @@
             buttons: [
                 {
                     extend: 'excelHtml5',
-                    title: 'Data Kehadiran'
+                    className: 'btn btn-secondary',
+                    text: 'Export',
+                    exportOptions: {
+                        columns: ':visible:not(.no-export)',
+                        modifier: {
+                            search: 'applied',
+                            order: 'applied'
+                        }
+                    }
+                },
+                {
+                    extend: 'colvis',
+                    className: 'btn btn-secondary',
+                    text: 'Filtering'
                 }
             ]
         });
+
         table.buttons().container().appendTo('#employee-table_wrapper .col-md-6:eq(0)');
     });
-
 
     function confirmDelete() {
         return confirm("Are you sure you want to delete this record?");
     }
+
 </script>
 </body>
 </html>
