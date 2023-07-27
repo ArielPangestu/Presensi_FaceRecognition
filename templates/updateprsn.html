@@ -1,0 +1,84 @@
+{% from "macros/sidebar.html" import sidebar %}
+{% from "macros/navbar.html" import navbar %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include "head.html" %}
+    <style>
+        .button-container {
+            display: flex;
+            justify-content: flex-end;
+        }
+    </style>
+</head>
+<body>
+{{ navbar() }}
+{{ sidebar() }}
+<section class="home-section">
+    <div class="row mt-5">
+        <div class="col-lg-8 offset-lg-2">
+            <h3>Update Pegawai</h3>
+            <hr>
+            <form class="form" method="POST" action="/updateprsn_submit">
+                <input type="hidden" name="txtnbr" value="{{ person[0] }}">
+                <div class="form-group row">
+                    <label for="txtname" class="col-sm-3 col-form-label">Nama</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="txtname" name="txtname"
+                               value="{{ person[1] }}" required>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="optskill" class="col-sm-3 col-form-label">Jabatan</label>
+                    <div class="col-sm-9">
+                        <select class="form-control" name="optskill" id="optskill">
+                            <option value="PRODUKSI" {% if person[2] == 'PRODUKSI' %}selected{% endif %}>
+                                Operator Produksi
+                            </option>
+                            <option value="GUDANG" {% if person[2] == 'GUDANG' %}selected{% endif %}>Operator
+                                Gudang
+                            </option>
+                            <option value="QC" {% if person[2] == 'QC' %}selected{% endif %}>Operator QC
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="txtphone" class="col-sm-3 col-form-label">No Telepon</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="txtphone" name="txtphone"
+                               value="{{ person[3] }}" required>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="txtaddress" class="col-sm-3 col-form-label">Alamat</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="txtaddress" name="txtaddress"
+                               value="{{ person[4] }}" required>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="txtsex" class="col-sm-3 col-form-label">Jenis Kelamin</label>
+                    <div class="col-sm-9">
+                        <select class="form-control" name="txtsex" id="txtsex">
+                            <option value="LakiLaki" {% if person[5] == 'LakiLaki' %}selected{% endif %}>
+                                Laki-Laki
+                            </option>
+                            <option value="Perempuan" {% if person[5] == 'Perempuan' %}selected{% endif %}>
+                                Perempuan
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row mt-3 button-container">
+                    <div class="col-md-9 text-right">
+                        <input type="submit" class="btn btn-primary btn-lg mr-2" value="Simpan">
+                        <a href="/index" type="button" class="btn btn-warning btn-lg"><b>Kembali</b></a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+</body>
+</html>

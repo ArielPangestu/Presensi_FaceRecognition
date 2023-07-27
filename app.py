@@ -364,28 +364,22 @@ def addprsn():
 
     return render_template('addprsn.html', newnbr=int(nbr))
 
-
 @app.route('/addprsn_submit', methods=['POST'])
 def addprsn_submit():
     prsnbr = request.form.get('txtnbr')
     prsname = request.form.get('txtname')
     prsskill = request.form.get('optskill')
     prsphone = request.form.get('txtphone')
+    prsaddress = request.form.get('txtaddress')
     prssex = request.form.get('txtsex')
 
 
-    mycursor.execute("""INSERT INTO `prs_mstr` (`prs_nbr`, `prs_name`, `prs_skill`,prs_phone, prs_sex) VALUES
-                    ('{}', '{}', '{}','{}','{}')""".format(prsnbr, prsname, prsskill, prsphone,prssex))
+    mycursor.execute("""INSERT INTO `prs_mstr` (`prs_nbr`, `prs_name`, `prs_skill`,prs_phone, prsaddress,prs_sex) VALUES
+                    ('{}', '{}', '{}','{}','{}')""".format(prsnbr, prsname, prsskill, prsphone, prsaddress,prssex))
     mydb.commit()
 
     # return redirect(url_for('home'))
     return redirect(url_for('vfdataset_page', prs=prsnbr))
-
-import mysql.connector
-
-
-
-# ...
 
 @app.route('/delete/<int:prs_nbr>', methods=['GET', 'POST'])
 def delete(prs_nbr):
@@ -398,6 +392,37 @@ def delete(prs_nbr):
     except mysql.connector.Error as error:
         print('Error:', error)
         return redirect(url_for('index'))
+
+@app.route('/updateprsn/<int:prs_id>')
+def updateprsn(prs_id):
+    mycursor.execute("SELECT * FROM prs_mstr WHERE prs_nbr = %s", (prs_id,))
+    data = mycursor.fetchone()
+    print(data)
+    return render_template('updateprsn.html', person=data)
+
+@app.route('/updateprsn_submit', methods=['POST'])
+def updateprsn_submit():
+    prsnbr = request.form.get('txtnbr')
+    prsname = request.form.get('txtname')
+    prsskill = request.form.get('optskill')
+    prsphone = request.form.get('txtphone')
+    prsaddress = request.form.get('txtaddress')
+    prssex = request.form.get('txtsex')
+
+    print(f"Data yang akan diupdate: {prsnbr}, {prsname}, {prsskill}, {prsphone}, {prsaddress}, {prssex}")
+
+    try:
+        mycursor.execute("""UPDATE prs_mstr 
+                            SET prs_name = %s, prs_skill = %s, prs_phone = %s, prs_address = %s, prs_sex = %s 
+                            WHERE prs_nbr = %s""", (prsname, prsskill, prsphone,prsaddress, prssex,  prsnbr))
+        mydb.commit()
+        print("Data berhasil diupdate!")
+    except Exception as e:
+        print(f"Terjadi kesalahan saat mengupdate data: {e}")
+        mydb.rollback()
+
+    return redirect(url_for('index'))
+
 
 @app.route('/vfdataset_page/<prs>')
 def vfdataset_page(prs):
@@ -441,7 +466,7 @@ def countTodayScan():
     mycursor = mydb.cursor()
 
     mycursor.execute("select count(*) "
-                     "  from accs_hist "
+                     " from accs_hist "
                      " where accs_date = curdate() ")
     row = mycursor.fetchone()
     rowcount = row[0]
