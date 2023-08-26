@@ -5,29 +5,101 @@
 <head>
     <title>Dashboard {% block title %} {% endblock %}</title>
     {% include "head.html" %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/jquery.dataTables.css') }}">
 </head>
 <body>
 {{ navbar() }}
 {{ sidebar() }}
-    <h2 class="home-section col-0 offset-1 mb-3">Dashboard</h2>
 <section class="home-section">
-    <div class="col-xl-3 col-md-6 mb-4 custom-position">
-        <div class="card border-right-primary shadow h-100 py-2">
-            <div class="card-body">
-                <div class="row no-gutters align-items-right">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                            Jumlah Pegawai
+    <div class="container-fluid">
+        <h3 class="font-weight-bold offset-1 mb-2">Dashboard</h3>
+        <div class="row">
+            <!-- Tombol Pegawai -->
+            <div class="col-md-3 mb-2 mt-2 offset-1">
+                <button class="custom-btn-card" onclick="location.href='{{ url_for('index') }}';">
+                    <div class="card bg-dark text-white shadow h-100">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <h5 class="card-title text-xs font-weight-bold text-white text-uppercase mb-1">
+                                    Total Pegawai
+                                </h5>
+                                <i class="bx bxs-contact ml-auto" style="font-size: 2.5em;"></i>
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold">{{ count_prs_mstr }}</div>
                         </div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ count }}</div>
                     </div>
-                    <div class="col-auto">
-                        <i class="bx bxs-contact" style="font-size: 4em;"></i>
+                </button>
+            </div>
+            <!-- Tombol Shift -->
+            <div class="col-md-3 mb-2 mt-2">
+                <button class="custom-btn-card ml-4" onclick="location.href='{{ url_for('shift') }}';">
+                    <div class="card bg-danger text-white shadow h-100">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <h5 class="card-title text-xs font-weight-bold text-white text-uppercase mb-1">
+                                    Shift
+                                </h5>
+                                <i class="bx bx-time ml-auto" style="font-size: 2.5em;"></i>
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold">{{ count_shift }}</div>
+                        </div>
+                    </div>
+                </button>
+            </div>
+            <div class="col-md-3 mb-2 mt-2">
+                <button class="custom-btn-card ml-5" onclick="location.href='{{ url_for('attendance') }}';">
+                    <div class="card bg-success text-white shadow h-100">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <h5 class="card-title text-xs font-weight-bold text-white text-uppercase mb-1">
+                                    Presensi Hari Ini
+                                </h5>
+                                <i class="bx bx-check-circle ml-auto" style="font-size: 2.5em;"></i>
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold">{{ count_kehadiran_hari_ini }}</div>
+                        </div>
+                    </div>
+                </button>
+            </div>
+        </div>
+        <div class="flex-wrap offset-1">
+            <div class="card shadow mb-4">
+                <div class="card-body">
+                    <h3 class="card-title text-left">Pegawai Belum Hadir</h3>
+                    <hr>
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="belum-hadir-table">
+                            <thead>
+                            <tr>
+                                <th>Nomor</th>
+                                <th>Nama Pegawai</th>
+                                <th>Jabatan</th>
+                                <th>Telepon</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for pegawai in prs_data_belum_hadir %}
+                                <tr>
+                                    <td>{{ loop.index }}</td>
+                                    <td>{{ pegawai[1] }}</td>
+                                    <td>{{ pegawai[2] }}</td>
+                                    <td>{{ pegawai[3] }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 </section>
+</div>
+
+<script type="text/javascript" src="{{ url_for('static', filename='js/jquery.dataTables.js') }}"></script>
+<script>
+    $(document).ready(function () {
+        $('#belum-hadir-table').DataTable();
+    });
+</script>
 </body>
 </html>

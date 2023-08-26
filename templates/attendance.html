@@ -1,11 +1,10 @@
 {% from "macros/sidebar.html" import sidebar %}
 {% from "macros/navbar.html" import navbar %}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     {% include "head.html" %}
-    <title>Laporan Kehadiran {% block title %}{% endblock %}</title>
+    <title>Informasi Kehadiran{% block title %}{% endblock %}</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/jquery.dataTables.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/buttons.bootstrap4.min.css') }}">
@@ -19,9 +18,10 @@
         <div class="card">
             <div class="card-body">
                 <h2 class="card-title text-center">Informasi Kehadiran</h2>
+                <hr>
                 <div class="row mb-3">
                     <div class="col-md-12">
-                        <h5 class="text-center" id="current-date-label">    : </h5>
+                        <h5 class="text-center" id="current-date-label"> : </h5>
                     </div>
                 </div>
 
@@ -36,7 +36,9 @@
                     <tr>
                         <th>Nama</th>
                         <th>Tanggal</th>
-                        <th>Jam</th>
+                        <th>Masuk</th>
+                        <th>Keluar</th>
+                        <th>Shift</th>
                         <th>Keterangan</th>
                     </tr>
                     </thead>
@@ -46,12 +48,10 @@
                             <td>{{ item[0] }}</td>
                             <td class="tanggal">{{ item[1] }}</td>
                             <td>{{ item[2] }}</td>
-                            <td class="{% if item[3] == 'Telat' %}telat{% endif %}">
-                                {% if item[3] == "Hadir" %}
-                                    Hadir
-                                {% else %}
-                                    Telat
-                                {% endif %}
+                            <td>{{ item[3] }}</td>
+                            <td>{{ item[5] }}</td>
+                            <td class="{% if item[4] == 'Telat' %}telat{% endif %}">
+                                {{ item[4] }}
                             </td>
                         </tr>
                     {% endfor %}
@@ -99,7 +99,7 @@
             startDate: todayStart,
             endDate: todayEnd,
             locale: {
-                format: 'YYYY-MM-DD',
+                format: 'DD-MM-YYYY',
                 cancelLabel: 'Clear'
             }
         });
@@ -145,8 +145,8 @@
         // Custom filtering function
         $.fn.dataTable.ext.search.push(
             function (settings, searchData, index, rowData, counter) {
-                var startDate = $('#date-range-picker').data('daterangepicker').startDate.format('YYYY-MM-DD');
-                var endDate = $('#date-range-picker').data('daterangepicker').endDate.format('YYYY-MM-DD');
+                var startDate = $('#date-range-picker').data('daterangepicker').startDate.format('DD-MM-YYYY');
+                var endDate = $('#date-range-picker').data('daterangepicker').endDate.format('DD-MM-YYYY');
                 var currentDate = searchData[1]; // Assuming the date column is at index 1 in your data
 
                 // Perform date range filtering

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    {% include "head.html" %}
+    <title>Detail Pegawai</title>
+</head>
+<body>
+    <p>Nomor: {{ employee_data['prs_nbr'] }}</p>
+    <p>Nama: {{ employee_data['prs_name'] }}</p>
+    <p>Keahlian: {{ employee_data['prs_skill'] }}</p>
+    <p>Telepon: {{ employee_data['prs_phone'] }}</p>
+    <p>Alamat: {{ employee_data['prs_address'] }}</p>
+    <p>Jenis Kelamin: {{ employee_data['prs_sex'] }}</p>
+    <p>Shift ID: {{ employee_data['shift_id'] }}</p>
+    <p>Status: {{ "Active" if employee_data['prs_active'] else "Inactive" }}</p>
+    <p>Tanggal Ditambahkan: {{ employee_data['prs_added'] }}</p>
+
+    <script>
+        function closeModal() {
+            // Close the modal when called
+            const modal = document.getElementById('employeeModal');
+            modal.style.display = 'none';
+        }
+    </script>
+</body>
+</html>

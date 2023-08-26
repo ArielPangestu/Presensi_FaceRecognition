@@ -1,0 +1,67 @@
+{% from "macros/sidebar.html" import sidebar %}
+{% from "macros/navbar.html" import navbar %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include "head.html" %}
+    <title> Shift {% block title %} {% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/jquery.dataTables.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+{{ navbar() }}
+{{ sidebar() }}
+<section class="home-section">
+    <div class="col-lg-20 offset-1">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title text-center">Shift</h2>
+
+                <a href="/add_shift" type="button" class="font-weight-bold btn btn-success btn-sm mb-2">+Tambah
+                    Shift</a>
+                <table class="table" id="shift-table">
+                    <thead>
+                    <tr>
+                        <th>Nama</th>
+                        <th>Jam Masuk</th>
+                        <th>Jam Keluar</th>
+                        <th>Aksi</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in data %}
+                        <tr>
+                            <td>{{ item[0] }}</td>
+                            <td>{{ item[1] }}</td>
+                            <td>{{ item[2] }}</td>
+                            <td>
+                                 <a href="/update_shift/{{ item[0] }}" class="btn btn-link btn-sm"><i
+                                        class="fas fa-edit fa-lg"></i></a>
+                                <a href="/delete_shift/{{ item[0] }}" class="btn btn-link btn-sm"
+                                   onclick="return confirmDelete();"><i class="fas fa-trash-alt fa-lg"></i></a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
+<script type="text/javascript" src="{{ url_for('static', filename='js/jquery.dataTables.js') }}"></script>
+<script>
+    function confirmDelete() {
+        return confirm("Apakah kamu yakin menghapus data ini?");
+    }
+
+    $(document).ready(function () {
+        $('#shift-table').DataTable({
+            "columnDefs": [
+                {"targets": 3, "orderable": false} // Disable sorting for the delete button column
+            ]
+        });
+    });
+</script>
+</body>
+</html>

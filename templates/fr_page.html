@@ -5,11 +5,6 @@
 <head>
     <title>Presensi {% block title %} {% endblock %}</title>
     {% include "head.html" %}
-    <script>
-        setTimeout(function () {
-            location.reload();
-        }, 10000);
-    </script>
 </head>
 <body>
 {{ navbar() }}
@@ -29,6 +24,7 @@
                         <th>Nama</th>
                         <th>Jabatan</th>
                         <th>Masuk</th>
+                        <th>Keluar</th> <!-- Tambahkan kolom baru untuk menampilkan data keluar -->
                     </tr>
                     </thead>
                     <tbody id="scandata">
@@ -85,6 +81,7 @@
                                     '<td>' + item[i][2] + '</td>' +
                                     '<td>' + item[i][3] + '</td>' +
                                     '<td>' + item[i][4] + '</td>' +
+                                    '<td>' + item[i][5] + '</td>' +
                                     '</tr>');
                             }
                         }
@@ -100,4 +97,3 @@
 
 </body>
 </html>
-

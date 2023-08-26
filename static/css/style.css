@@ -270,7 +270,7 @@
 .home-section {
     position: relative;
     background: #FFFFFF;
-    min-height: 10vh;
+    min-height: 5vh;
     top: 0;
     left: 15px;
     width: calc(100% - 78px);
@@ -350,3 +350,50 @@
     left: 20%;
     transform: translate(-50%, -50%);
 }
+
+.card {
+    margin-bottom: 30px;
+    border: 0;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+}
+
+.btn i.fa-edit {
+    color: green;
+}
+
+.btn i.fa-trash-alt {
+    color: red;
+}
+
+.btn i.fa-user {
+    color: blue;
+}
+
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.custom-btn-card {
+    border: none;
+    background: none;
+    cursor: pointer;
+    text-align: left;
+    padding: 0;
+    width: 110%;
+    font-size: 18px;
+}
+
+.custom-btn-card .card {
+    border: none;
+}
+
+.custom-btn-card .card-body {
+    padding: 1rem;
+}
+
+.custom-btn-card .card-title {
+    margin-bottom: 0.5rem;
+}
+
+
