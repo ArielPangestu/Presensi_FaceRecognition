@@ -54,7 +54,6 @@
         }
 
         form {
-            height: 520px;
             width: 400px;
             background-color: rgba(255, 255, 255, 0.13);
             position: absolute;
@@ -145,6 +144,24 @@
             margin-right: 4px;
         }
 
+        label[for="role"] {
+            display: block;
+            margin-top: 30px;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        select#role {
+            display: block;
+            height: 50px;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.07);
+            border-radius: 3px;
+            padding: 0 10px;
+            margin-top: 8px;
+            font-size: 14px;
+            font-weight: 300;
+        }
     </style>
 </head>
 <body>
@@ -155,7 +172,8 @@
 <form action="{{ url_for('register') }}" method="post">
     <h3>Register</h3>
     {% if message %}
-        <div class="alert alert-danger text-" style="color: red; text-align: center; margin-top: 5px;">{{ message }}</div>
+        <div class="alert alert-danger text-"
+             style="color: red; text-align: center; margin-top: 5px;">{{ message }}</div>
     {% endif %}
 
     <label for="username">Name</label>
@@ -166,6 +184,13 @@
 
     <label for="password">Password</label>
     <input type="password" placeholder="Masukan Password" class="form-control" id="password" name="password" required>
+
+    <label for="role">Role</label>
+    <select id="role" name="role" required>
+        <option value="supervisor">Supervisor</option>
+        <option value="akuntan">Akuntan</option>
+    </select>
+
 
     <div style="margin-top: 5px; text-align: center;">
         <button>Register</button>
